@@ -49,80 +49,80 @@ void SecondClass::Loop()
 
  //   FILE* fp;
  //   fp=fopen("my_file0.txt","w");
-    TH2F *energyxmod = new TH2F("energyxmod","ZDC_energy_mpd vs modules;number of module;Energy,MeV",90,0,100,90,0,5);
+    TH2F *energyxmod = new TH2F("energyxmod","ZDC_energy_mpd vs modules;number of module;Energy,GeV",90,0,100,90,0,5);
     TH1F *energy = new TH1F("energy", "energy",90,0,5);
-    TH2F *energyxb = new TH2F ("energyxb", "ZDC_energy_mpd vs b;impact parameter b,fermi;energy,MeV", 90,0,18,90,0,50);
-    TH1F *mod_angle =new TH1F ("mod_angle", "mod_angle", 90,-4,4);
+    TH2F *energyxb = new TH2F ("energyxb", "ZDC_energy_mpd vs b;impact parameter b,fermi;energy,GeV", 90,0,18,90,0,50);
+    TH1F *mod_angle =new TH1F ("mod_angle", "Distribution of module's azimuthal angle in FHCal;angle,rad;number", 90,-4,4);
     TH1F *weightangle =new TH1F("weightangle","weight_angle",90,-4,4);
-    TH1F *Qxall =new TH1F ("Qxall", "Distribution of Qx in FHCal ;value of Qx,MeV;number of pulses N", 90,-3,3);
-    TH1F *Qyall =new TH1F ("Qyall", "Distribution of Qy in FHCal;value of Qy,MeV;number of pulses N", 90,-3,3);
-    TH1F *Qx44 =new TH1F ("Qx44","Distribution of Qx in first part of FHCal;value of Qx,Mev;number of pulses N",90,-3,3);
-    TH1F *Qx90 =new TH1F ("Qx90","Distribution of Qx in second part of FHCal;value of Qx,MeV;number of pulses N",90,-3,3);
-    TH1F *Qy44 =new TH1F ("Qy44","Distribution of Qy in first part of FHCal;value of Qy,Mev;number of pulses N",90,-3,3);
-    TH1F *Qy90 =new TH1F ("Qy90", "Distribution of Qy in second part of FHCal;value of Qy,Mev;number of pulses N", 90,-3,3);
-    TH2F *ntracksxb =new TH2F ("ntracksxb","plurality versus impact parameter,impact parameter b,fermi;plurality,number",90,0,18,90,0,500);
-    TH2F *energyxntracks =new TH2F ("energyxntracks","energy versus plurality;plurality,number;energy,MeV",90,0,500,90,0,40);
+    TH1F *Qxall =new TH1F ("Qxall", "Distribution of Qx and Qy in FHCal ;value of Qx,Qy,GeV;number of pulses N", 90,-3,3);
+    TH1F *Qyall =new TH1F ("Qyall", "Distribution of Qy in FHCal;value of Qy,GeV;number of pulses N", 90,-3,3);
+    TH1F *Qx44 =new TH1F ("Qx44","Distribution of Qx and Qy in first part of FHCal;value of Qx,Qy,Gev;number of pulses N",90,-3,3);
+    TH1F *Qx90 =new TH1F ("Qx90","Distribution of Qx and Qy in second part of FHCal;value of Qx,Qy,GeV;number of pulses N",90,-3,3);
+    TH1F *Qy44 =new TH1F ("Qy44","Distribution of Qy in first part of FHCal;value of Qy,Gev;number of pulses N",90,-3,3);
+    TH1F *Qy90 =new TH1F ("Qy90", "Distribution of Qy in second part of FHCal;value of Qy,Gev;number of pulses N", 90,-3,3);
+    TH2F *ntracksxb =new TH2F ("ntracksxb","multiplicity versus impact parameter,impact parameter b,fermi;multiplicity,number",90,0,18,90,0,500);
+    TH2F *energyxntracks =new TH2F ("energyxntracks","energy versus multiplicity;multiplicity,number;energy,GeV",90,0,500,90,0,40);
     TH1F *fnall =new TH1F ("fnall","Distribution of event plane angle in FHCal;event plane angle fn,rad;number of pulses N",90,-4,4);
     TH1F *fn44 =new TH1F ("fn44","Distribution of event plane angle in first part of FHCal;event plane angle fn,rad;number of pulses N",90,-4,4);
     TH1F *fn90 =new TH1F ("fn90","Distribution of event plane angle in second part of FHCal;event plane angle fn,rad;number of pulses N",90,-4,4);
-    TH1F *PhiEP =new TH1F ("PhiEP","PhiEP", 90,-4,4);
+    TH1F *PhiEP =new TH1F ("PhiEP","Theoretic ditribution of reaction plane angle;angle,rad;number", 90,-4,4);
 
 
-    TH1F *Qx44all[8];
-    for(int j=0;j<8;j++)
+    TH1F *Qx44all[9];
+    for(int j=1;j<9;j++)
     {
-    Qx44all[j]=new TH1F(Form("Qx44all_%i",j),Form("Distribution of Qx in first part of FHCal with centrality %i0%;value of Qx,Mev;number of pulses N",j),90,-4,4);
+    Qx44all[j]=new TH1F(Form("Qx44all_%i",j),Form("Distribution of Qx in first part of FHCal with centrality %i0%;value of Qx,Gev;number of pulses N",j),90,-4,4);
 
     }
 
-    TH1F *Qy44all[8];
-    for(int j=0;j<8;j++)
+    TH1F *Qy44all[9];
+    for(int j=1;j<9;j++)
     {
 
-    Qy44all[j]=new TH1F(Form("Qy44all_%i",j),Form("Distribution of Qy first part of FHCal with centrality %i0%;value of Qy,Mev;number of pulses N",j),90,-4,4);
+    Qy44all[j]=new TH1F(Form("Qy44all_%i",j),Form("Distribution of Qy first part of FHCal with centrality %i0%;value of Qy,Gev;number of pulses N",j),90,-4,4);
     }
-    TH1F *Qx90all[8];
-    for(int j=0;j<8;j++)
+    TH1F *Qx90all[9];
+    for(int j=1;j<9;j++)
     {
-    Qx90all[j]=new TH1F(Form("Qx90all_%i",j),Form("Distribution of Qx in second part of FHCal with centrality %i0%;value of Qx,MeV;number of pulses N",j),90,-4,4);
+    Qx90all[j]=new TH1F(Form("Qx90all_%i",j),Form("Distribution of Qx in second part of FHCal with centrality %i0%;value of Qx,GeV;number of pulses N",j),90,-4,4);
     }
-    TH1F *Qy90all[8];
-    for(int j=0;j<8;j++)
+    TH1F *Qy90all[9];
+    for(int j=1;j<9;j++)
     {   
-    Qy90all[j]=new TH1F(Form("Qy90all_%i",j),Form("Distribution of Qy in second part of FHCal with centrality %i0%;value of Qy,Mev;number of pulses N",j),90,-4,4);
+    Qy90all[j]=new TH1F(Form("Qy90all_%i",j),Form("Distribution of Qy in second part of FHCal with centrality %i0%;value of Qy,Gev;number of pulses N",j),90,-4,4);
     }
 
 
 
-    TH1F *RecQx44all[8];
-    for(int j=0;j<8;j++)
+    TH1F *RecQx44all[9];
+    for(int j=1;j<9;j++)
     {
-    RecQx44all[j]=new TH1F(Form("RecQx44all_%i",j),Form("Distribution of Qx in first part of FHCal with centrality %i0% with recentering;value of Qx,MeV;number of pulses N",j),90,-4,4);
+    RecQx44all[j]=new TH1F(Form("RecQx44all_%i",j),Form("Distribution of Qx in first part of FHCal with centrality %i0% with recentering;value of Qx,GeV;number of pulses N",j),90,-4,4);
     }
-    TH1F *RecQy44all[8];     
-    for(int j=0;j<8;j++)
+    TH1F *RecQy44all[9];     
+    for(int j=1;j<9;j++)
     {
-    RecQy44all[j]=new TH1F(Form("RecQy44all_%i",j),Form("Distribution of Qy in first part of FHCal with centrality %i0% with recentering;value of Qy,Mev;number of pulses N",j),90,-4,4);
+    RecQy44all[j]=new TH1F(Form("RecQy44all_%i",j),Form("Distribution of Qy in first part of FHCal with centrality %i0% with recentering;value of Qy,Gev;number of pulses N",j),90,-4,4);
     }
-    TH1F *RecQx90all[8];    
-    for(int j=0;j<8;j++)
+    TH1F *RecQx90all[9];    
+    for(int j=1;j<9;j++)
     {   
-    RecQx90all[j]=new TH1F(Form("RecQx90all_%i",j),Form("Distribution of Qx in second part of FHCal with centrality %i0% with recentering;value of Qx,MeV;number of pulses N",j),90,-4,4);
+    RecQx90all[j]=new TH1F(Form("RecQx90all_%i",j),Form("Distribution of Qx in second part of FHCal with centrality %i0% with recentering;value of Qx,GeV;number of pulses N",j),90,-4,4);
     }
-    TH1F *RecQy90all[8];    
-    for(int j=0;j<8;j++)
+    TH1F *RecQy90all[9];    
+    for(int j=1;j<9;j++)
     {                   
-    RecQy90all[j]=new TH1F(Form("RecQy90all_%i",j),Form("Distribution of Qy in second part of FHCal with centrality %i0% with recentering;value of Qy,MeV;number of pulses N",j),90,-4,4);
+    RecQy90all[j]=new TH1F(Form("RecQy90all_%i",j),Form("Distribution of Qy in second part of FHCal with centrality %i0% with recentering;value of Qy,GeV;number of pulses N",j),90,-4,4);
     }
 
 
-    TH1F *fn44all[8];
-    for(int j=0;j<8;j++)
+    TH1F *fn44all[9];
+    for(int j=1;j<9;j++)
     {
     fn44all[j]=new TH1F(Form("fn44all_%i",j),Form("Distribution of event plane angle in first part of FHCal with centrality %i0%;Event plane angle fn,rad;number of pulses N",j),90,-4,4);
     }
-    TH1F *fn90all[8];
-    for(int j=0;j<8;j++)
+    TH1F *fn90all[9];
+    for(int j=1;j<9;j++)
     {
     fn90all[j]=new TH1F(Form("fn90all_%i",j),Form("Distribution of event plane angle in second part of FHCal with centrality %i0%;Event plane angle fn,rad;number of pulses N",j),90,-4,4);
     }
@@ -140,8 +140,8 @@ void SecondClass::Loop()
       
       
       
-    TH1F *QyallB[8];
-    for(int j=0;j<8;j++)
+    TH1F *QyallB[9];
+    for(int j=1;j<9;j++)
     {
     QyallB[j]=new TH1F(Form("QyallB_%i",j),Form("QyallB_%i",j),90,-4,4);
     }
@@ -176,10 +176,10 @@ void SecondClass::Loop()
       float Qx901 =-0.05738;
       float Qy441 =-0.008082;
       float Qy901 =0.01032;
-      float RecQx44 [8] ={0.01721,0.01293,0.007658,0.01912,-0.003273,0.02234,0.007018,-0.03159};
-      float RecQx90 [8] ={0.02838,0.01913,0.02284,0.01547,-0.02274,0.01406,-0.003062,-0.03234};
-      float RecQy44 [8] ={-0.002614,-0.01551,0.02799,-0.006327,0.005523,-0.00458,0.01763,0.01922};
-      float RecQy90 [8] ={0.01306,-0.07839,-0.0004876,0.03239,0.01429,-0.02051,-0.006926,0.01394};
+      float RecQx44 [9] ={0,0.01721,0.01293,0.007658,0.01912,-0.003273,0.02234,0.007018,-0.03159};
+      float RecQx90 [9] ={0,0.02838,0.01913,0.02284,0.01547,-0.02274,0.01406,-0.003062,-0.03234};
+      float RecQy44 [9] ={0,-0.002614,-0.01551,0.02799,-0.006327,0.005523,-0.00458,0.01763,0.01922};
+      float RecQy90 [9] ={0,0.01306,-0.07839,-0.0004876,0.03239,0.01429,-0.02051,-0.006926,0.01394};
       float en1 =0;
       for(i=0;i<90;i++)
       {
@@ -212,9 +212,9 @@ void SecondClass::Loop()
 
 
 	
-	for(int j=0;j<8;j++)
+	for(int j=1;j<9;j++)
 	{
-	if(j*10<=centrality_tpc_mpd && centrality_tpc_mpd<(j+1)*10)
+	if((j-1)*10<=centrality_tpc_mpd && centrality_tpc_mpd<j*10)
 	{
 	QyallB[j]->Fill(Qy1);
 
@@ -246,9 +246,9 @@ void SecondClass::Loop()
 
 // " A  Part Code for  Recentering "
 //
-//     for(int j=0;j<8;j++)
+//     for(int j=1;j<9;j++)
 //      {
-//      if(j*10<=centrality_tpc_mpd && centrality_tpc_mpd<(j+1)*10)
+//      if((j-1)*10<=centrality_tpc_mpd && centrality_tpc_mpd<j*10)
 //      {
 //      float QyRec= Qy1-hRecQy[j]->GetMean();
 //      RecQy[j]->Fill(QyRec);
@@ -357,8 +357,8 @@ void SecondClass::Loop()
        TCanvas* c12 =new TCanvas("c12","histo11");
        fn90->Draw();
        c12->Print("fn90.pdf");
-      TCanvas* c13[8];
-      for(int j=0;j<8;j++)
+      TCanvas* c13[9];
+      for(int j=1;j<9;j++)
       {
       c13[j] =new TCanvas(Form("c13_%i",j),Form("c13_%i",j));
       QyallB[j]->Draw();
@@ -367,9 +367,9 @@ void SecondClass::Loop()
 
 
 
-      TCanvas* x44[8];
-      TLegend* leg4[8];
-      for(int j=0;j<8;j++)
+      TCanvas* x44[9];
+      TLegend* leg4[9];
+      for(int j=1;j<9;j++)
       {
       x44[j]=new TCanvas(Form("x44_%i",j),Form("x44_%i",j));
       Qx44all[j]->Draw();
@@ -382,9 +382,9 @@ void SecondClass::Loop()
       leg4[j]->Draw();
       x44[j]->Print(Form("Qx44all_%i.pdf",j));
       }
-      TCanvas* y44[8];
-      TLegend* leg5[8];
-      for(int j=0;j<8;j++)
+      TCanvas* y44[9];
+      TLegend* leg5[9];
+      for(int j=1;j<9;j++)
       {
       y44[j]=new TCanvas(Form("y44_%i",j),Form("y44_%i",j));
       Qy44all[j]->Draw();
@@ -397,9 +397,9 @@ void SecondClass::Loop()
       leg5[j]->Draw();
       y44[j]->Print(Form("Qy44all_%i.pdf",j));
       }
-      TCanvas* x90[8];
-      TLegend* leg6[8];
-      for(int j=0;j<8;j++)
+      TCanvas* x90[9];
+      TLegend* leg6[9];
+      for(int j=1;j<9;j++)
       {
       x90[j]=new TCanvas(Form("x90_%i",j),Form("x90_%i",j));
       Qx90all[j]->Draw();
@@ -412,9 +412,9 @@ void SecondClass::Loop()
       leg6[j]->Draw();
       x90[j]->Print(Form("Qx90all_%i.pdf",j));
       }
-      TCanvas* y90[8];
-      TLegend* leg7[8];
-      for(int j=0;j<8;j++)
+      TCanvas* y90[9];
+      TLegend* leg7[9];
+      for(int j=1;j<9;j++)
       {
       y90[j]=new TCanvas(Form("y90_%i",j),Form("y90_%i",j));
       Qy90all[j]->Draw();
@@ -427,15 +427,15 @@ void SecondClass::Loop()
       leg7[j]->Draw();
       y90[j]->Print(Form("Qy90all_%i.pdf",j));
       }
-      TCanvas* f44[8];
-      for(int j=0;j<8;j++)
+      TCanvas* f44[9];
+      for(int j=1;j<9;j++)
       {
       f44[j]= new TCanvas(Form("f44_%i",j),Form("f44_%i",j));
       fn44all[j]->Draw();
       f44[j]->Print(Form("fn44all_%i.pdf",j));
       }
-      TCanvas* f90[8];
-      for(int j=0;j<8;j++)
+      TCanvas* f90[9];
+      for(int j=1;j<9;j++)
       {
       f90[j]= new TCanvas(Form("f90_%i",j),Form("f90_%i",j));
       fn90all[j]->Draw();
@@ -450,8 +450,8 @@ void SecondClass::Loop()
 
 //   "A Part Code for Recentering"
 //
-//      TCanvas* c14[8];
-//      for(int j=0;j<8;j++)
+//      TCanvas* c14[9];
+//      for(int j=1;j<9;j++)
 //      {
 //      c14[j] =new TCanvas(Form("c14_%i",j),Form("c14_%i",j));
 //     RecQy[j]->Draw();
