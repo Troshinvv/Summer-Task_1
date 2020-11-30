@@ -49,6 +49,10 @@ void SecondClass::Loop()
 
  //   FILE* fp;
  //   fp=fopen("my_file0.txt","w");
+      FILE* fRes;
+      fRes=fopen("ResPhin.txt","w");
+      Float_t ResPhin[8]={0,0,0,0,0,0,0,0};
+      Int_t ResN[8]={0,0,0,0,0,0,0,0};
     TH2F *energyxmod = new TH2F("energyxmod","ZDC_energy_mpd vs modules;number of module;Energy,GeV",90,0,100,90,0,5);
     TH1F *energy = new TH1F("energy", "energy",90,0,5);
     TH2F *energyxb = new TH2F ("energyxb", "ZDC_energy_mpd vs b;impact parameter b,fermi;energy,GeV", 90,0,18,90,0,50);
@@ -181,6 +185,7 @@ void SecondClass::Loop()
       float RecQy44 [9] ={0,-0.002614,-0.01551,0.02799,-0.006327,0.005523,-0.00458,0.01763,0.01922};
       float RecQy90 [9] ={0,0.01306,-0.07839,-0.0004876,0.03239,0.01429,-0.02051,-0.006926,0.01394};
       float en1 =0;
+
       for(i=0;i<90;i++)
       {
       if(i==22 || i==67)
@@ -234,7 +239,11 @@ void SecondClass::Loop()
 	{
 	fn90all[j]->Fill(atan2(Qy901-RecQy90[j],Qx901-RecQx90[j]));
 	}
-//	if(j==0 && ((Qx901-RecQx90[j])!=0) &&((Qy901-RecQy90[j])!=0) && ((Qx441-RecQx44[j])!=0) &&((Qy441-RecQy44[j])!=0) )
+	if( ((Qx901-RecQx90[j])!=0) &&((Qy901-RecQy90[j])!=0) && ((Qx441-RecQx44[j])!=0) &&((Qy441-RecQy44[j])!=0) )
+	{
+	ResPhin[j-1]=ResPhin[j-1]+cos(atan2(Qy901-RecQy90[j],Qx901-RecQx90[j])-atan2(Qy441-RecQy44[j],Qx441-RecQx44[j]));
+	ResN[j-1]=ResN[j-1]+1;
+	}
 //	fprintf(fp,"%f\n",sqrt(abs(cos(atan2(Qy901-RecQy90[j],Qx901-RecQx90[j])-atan2(Qy441-RecQy44[j],Qx441-RecQx44[j])))));
 
 
@@ -466,6 +475,12 @@ void SecondClass::Loop()
       TCanvas* c16 =new TCanvas("c16","histo16");
       PhiEP->Draw();
       c16->Print("PhiEP_mc.pdf");
+
+      for(int j=0;j<9;j++)
+      {
+      fprintf(fRes,"%f\n",sqrt(ResPhin[j]/ResN[j]));
+      }
+      fclose(fRes);
 
       // if (Cut(ientry) < 0) continue;
 //      fclose(fp);
