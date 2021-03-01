@@ -2,7 +2,7 @@
 // This class has been automatically generated on
 // Tue Aug 18 16:38:03 2020 by ROOT version 6.13/01
 // from TTree cbmsim_reduced/cbmsim_reduced
-// found on file: /mnt/pool/rhic/4/parfenovpeter/mpd_merged/merged_0.root
+// found on file: /mpd_merged/merged_0.root
 //////////////////////////////////////////////////////////
 
 #ifndef SecondClass_h
@@ -152,9 +152,9 @@ SecondClass::SecondClass(TTree *tree) : fChain(0)
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
    if (tree == 0) {
-      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("/mnt/pool/rhic/4/parfenovpeter/mpd_merged/merged_0.root");
+      TFile *f = (TFile*)gROOT->GetListOfFiles()->FindObject("~/mpd_merged/merged_0.root");
       if (!f || !f->IsOpen()) {
-         f = new TFile("/mnt/pool/rhic/4/parfenovpeter/mpd_merged/merged_0.root");
+         f = new TFile("~/mpd_merged/merged_0.root");
       }
       f->GetObject("cbmsim_reduced",tree);
 
